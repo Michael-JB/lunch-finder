@@ -1,5 +1,6 @@
 var map;
 var infoWindow;
+var marker;
 var curLocation = {
   lat: 55,
   lng: -4
@@ -10,6 +11,7 @@ var lunchOptions = [];
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: curLocation,
+    streetViewControl: false,
     zoom: 6
   });
 
@@ -67,7 +69,7 @@ function propose(place) {
   var placeLoc = place.geometry.location;
   createMarker(place);
 
-  map.setCenter({
+  map.panTo({
     lat: placeLoc.lat(),
     lng: placeLoc.lng()
   });
@@ -81,12 +83,12 @@ function nextLunchOption() {
 }
 
 function createMarker(place) {
-  var placeLoc = place.geometry.location;
-  var marker = new google.maps.Marker({
+  if (marker) marker.setMap(null);
+  marker = new google.maps.Marker({
     map: map,
-    position: placeLoc
+    position: place.geometry.location,
+    animation: google.maps.Animation.DROP
   });
-
   google.maps.event.addListener(marker, 'click', function() {
     infoWindow.setContent(place.name);
     infoWindow.open(map, this);

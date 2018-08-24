@@ -1,5 +1,14 @@
 #map {
-  height: 95%;
+  /* z-index: -1; */
+  height: 100%;
+}
+
+.suggestion {
+  text-align: left;
+  padding-right: 1.5rem;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 html, body {
