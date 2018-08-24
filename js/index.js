@@ -50,15 +50,33 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function callback(results, status, pagination) {
+  console.log(results);
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       var restaurant = results[i];
       if (restaurant.hasOwnProperty('opening_hours') && restaurant.opening_hours.open_now) {
         lunchOptions.push(restaurant);
-        createMarker(restaurant);
       }
     }
     if (pagination.hasNextPage) pagination.nextPage();
+    shuffleArray(lunchOptions);
+  }
+}
+
+function propose(place) {
+  var placeLoc = place.geometry.location;
+  createMarker(place);
+
+  map.setCenter({
+    lat: placeLoc.lat(),
+    lng: placeLoc.lng()
+  });
+}
+
+function nextLunchOption() {
+  if (lunchOptions.length > 0) {
+    var lunchProposition = lunchOptions.shift();
+    propose(lunchProposition);
   }
 }
 
@@ -66,11 +84,18 @@ function createMarker(place) {
   var placeLoc = place.geometry.location;
   var marker = new google.maps.Marker({
     map: map,
-    position: place.geometry.location
+    position: placeLoc
   });
 
   google.maps.event.addListener(marker, 'click', function() {
     infoWindow.setContent(place.name);
     infoWindow.open(map, this);
   });
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+  }
 }
