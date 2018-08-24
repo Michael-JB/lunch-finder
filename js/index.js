@@ -1,32 +1,36 @@
 var map;
 var infoWindow;
+var curLocation = {
+  lat: 55,
+  lng: -4
+};
+
+var lunchOptions = [];
 
 function initMap() {
-  var pyrmont = {lat: -33.867, lng: 151.195};
-
   map = new google.maps.Map(document.getElementById('map'), {
-    center: pyrmont,
-    zoom: 15
+    center: curLocation,
+    zoom: 6
   });
 
   infoWindow = new google.maps.InfoWindow;
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
 
-      infoWindow.setPosition(pos);
+      curLocation.lat = position.coords.latitude;
+      curLocation.lng = position.coords.longitude;
+
+      infoWindow.setPosition(curLocation);
       infoWindow.setContent('Location found.');
       infoWindow.open(map);
-      map.setCenter(pos);
+      map.setCenter(curLocation);
+      map.setZoom(16);
 
       var service = new google.maps.places.PlacesService(map);
       service.nearbySearch({
-        location: pos,
-        radius: 2000,
+        location: curLocation,
+        radius: 1000,
         type: ['restaurant']
       }, callback);
     }, function() {
@@ -48,7 +52,11 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 function callback(results, status, pagination) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      createMarker(results[i]);
+      var restaurant = results[i];
+      if (restaurant.hasOwnProperty('opening_hours') && restaurant.opening_hours.open_now) {
+        lunchOptions.push(restaurant);
+        createMarker(restaurant);
+      }
     }
     if (pagination.hasNextPage) pagination.nextPage();
   }
