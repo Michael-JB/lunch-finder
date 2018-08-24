@@ -1,3 +1,3 @@
 # lunch-finder
 
-[Find some me lunch](https://michael-jb.github.io/lunch-finder/)
+[Find me some lunch](https://michael-jb.github.io/lunch-finder/)
