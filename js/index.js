@@ -12,6 +12,11 @@ function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: curLocation,
     streetViewControl: false,
+    fullscreenControl: false,
+
+    zoomControlOptions: { position: google.maps.ControlPosition.LEFT_CENTER },
+    mapTypeControlOptions: { position: google.maps.ControlPosition.LEFT_BOTTOM },
+
     zoom: 6
   });
 
@@ -62,12 +67,14 @@ function callback(results, status, pagination) {
     }
     if (pagination.hasNextPage) pagination.nextPage();
     shuffleArray(lunchOptions);
+    if (!marker) nextSuggestion();
   }
 }
 
 function propose(place) {
   var placeLoc = place.geometry.location;
   createMarker(place);
+  document.getElementById("suggestion-name").innerHTML = place.name;
 
   map.panTo({
     lat: placeLoc.lat(),
@@ -75,7 +82,7 @@ function propose(place) {
   });
 }
 
-function nextLunchOption() {
+function nextSuggestion() {
   if (lunchOptions.length > 0) {
     var lunchProposition = lunchOptions.shift();
     propose(lunchProposition);
