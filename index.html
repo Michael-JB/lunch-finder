@@ -11,21 +11,17 @@
     <meta name="author" content="">
 
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
   </head>
 
   <body>
     <div id="map"></div>
     <div class="suggestion">
-      <button type="button" class="btn btn-primary btn-lg" onclick="nextSuggestion()">Find somewhere...</button>
-      <h1 id="suggestion-name"></h1>
+      <button class="btn" onclick="nextSuggestion()">Find somewhere...</button>
+      <span id="suggestion-name">Finding somewhere...</span>
     </div>
     <script src="js/index.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&callback=initMap"></script>
     <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ535kzUyaN9E7qfh2LUUgIh_-jSycONYe&libraries=places&callback=initMap"></script> -->
-
-    <!-- Bootstrap stuff -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
   </body>
 </html>

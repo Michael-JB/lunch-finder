@@ -1,6 +1,7 @@
 var map;
 var infoWindow;
 var marker;
+var myMarker;
 var curLocation = {
   lat: 55,
   lng: -4
@@ -28,11 +29,9 @@ function initMap() {
       curLocation.lat = position.coords.latitude;
       curLocation.lng = position.coords.longitude;
 
-      infoWindow.setPosition(curLocation);
-      infoWindow.setContent('Location found.');
-      infoWindow.open(map);
       map.setCenter(curLocation);
       map.setZoom(16);
+      markMyLocation(curLocation);
 
       var service = new google.maps.places.PlacesService(map);
       service.nearbySearch({
@@ -98,6 +97,18 @@ function createMarker(place) {
   });
   google.maps.event.addListener(marker, 'click', function() {
     infoWindow.setContent(place.name);
+    infoWindow.open(map, this);
+  });
+}
+
+function markMyLocation(location) {
+  myMarker = new google.maps.Marker({
+    map: map,
+    position: location,
+    animation: google.maps.Animation.DROP
+  });
+  google.maps.event.addListener(myMarker, 'click', function() {
+    infoWindow.setContent("You are here");
     infoWindow.open(map, this);
   });
 }
