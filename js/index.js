@@ -74,6 +74,7 @@ function propose(place) {
   var placeLoc = place.geometry.location;
   createMarker(place);
   document.getElementById("suggestion-name").innerHTML = place.name;
+  document.getElementById("suggestion-address").innerHTML = place.vicinity;
 
   map.panTo({
     lat: placeLoc.lat(),

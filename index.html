@@ -17,8 +17,9 @@
   <body>
     <div id="map"></div>
     <div class="suggestion">
-      <button class="btn" onclick="nextSuggestion()">Find somewhere...</button>
-      <span id="suggestion-name">Finding somewhere...</span>
+      <button class="btn" onclick="nextSuggestion()">Find somewhere</button>
+      <span id="suggestion-name" class="suggestion-data">Finding somewhere...</span>
+      <span id="suggestion-address" class="suggestion-data"></span>
     </div>
     <script src="js/index.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&callback=initMap"></script>

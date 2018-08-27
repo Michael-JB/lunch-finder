@@ -3,16 +3,15 @@
   height: 100%;
 }
 
-#suggestion-name {
+.suggestion-data {
   background-color: #555555;
   color: white;
-  padding: 3px;
+  padding: 15px 32px;
 }
 
 .suggestion {
   text-align: left;
-  padding-left: 1.5rem;
-  padding-top: 1.5rem;
+  padding: 1rem;
   position: absolute;
   top: 0;
   width: 100%;
