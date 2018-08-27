@@ -93,6 +93,7 @@ function calculateAndDisplayRoute(place) {
   }, function(response, status) {
     if (status === 'OK') {
       directionsDisplay.setDirections(response);
+      document.getElementById("suggestion-distance").innerHTML = "(" + response.routes[0].legs[0].distance.text + ")";
     } else {
       window.alert('Directions request failed due to ' + status);
     }

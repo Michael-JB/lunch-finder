@@ -3,21 +3,41 @@
   height: 100%;
 }
 
-.suggestion-data {
-  background-color: #555555;
-  color: white;
-  padding: 15px 32px;
+#suggestion-name {
+  font-size: 40px;
+}
+
+.suggestion-head {
+  padding: 0.25rem 0.5rem;
+}
+
+.suggestion-body {
+  padding: 0.25rem 0.5rem;
+}
+
+.suggestion-body span {
+  margin-top: 1rem;
 }
 
 .suggestion {
   text-align: left;
-  padding: 1rem;
+  margin: 1rem;
   position: absolute;
+  color: white;
+  background-color: #555555;
   top: 0;
-  width: 100%;
 }
 
-.btn {
+.skip-place {
+  z-index: 1;
+  text-align: right;
+  padding: 2rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+button {
   font-family: 'Roboto', sans-serif;
   background-color: #555555;
   border: none;
@@ -31,7 +51,7 @@
   cursor: pointer;
 }
 
-.btn:hover {
+button:hover {
   opacity: 1;
 }
 
