@@ -1,5 +1,7 @@
 var map;
 var infoWindow;
+var directionsService;
+var directionsDisplay;
 var marker;
 var myMarker;
 var curLocation = {
@@ -21,7 +23,11 @@ function initMap() {
     zoom: 6
   });
 
+  directionsService = new google.maps.DirectionsService;
+  directionsDisplay = new google.maps.DirectionsRenderer;
   infoWindow = new google.maps.InfoWindow;
+
+  directionsDisplay.setMap(map);
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -36,7 +42,7 @@ function initMap() {
       var service = new google.maps.places.PlacesService(map);
       service.nearbySearch({
         location: curLocation,
-        radius: 1000,
+        radius: 1500,
         type: ['restaurant']
       }, callback);
     }, function() {
@@ -76,9 +82,20 @@ function propose(place) {
   document.getElementById("suggestion-name").innerHTML = place.name;
   document.getElementById("suggestion-address").innerHTML = place.vicinity;
 
-  map.panTo({
-    lat: placeLoc.lat(),
-    lng: placeLoc.lng()
+  calculateAndDisplayRoute(placeLoc);
+}
+
+function calculateAndDisplayRoute(place) {
+  directionsService.route({
+    origin: curLocation,
+    destination: place,
+    travelMode: 'WALKING'
+  }, function(response, status) {
+    if (status === 'OK') {
+      directionsDisplay.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
   });
 }
 
@@ -116,7 +133,7 @@ function markMyLocation(location) {
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
 }
