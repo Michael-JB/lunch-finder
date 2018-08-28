@@ -10,6 +10,7 @@ var curLocation = {
 };
 
 var lunchOptions = [];
+var rejectedOptions = [];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -44,7 +45,7 @@ function initMap() {
       var service = new google.maps.places.PlacesService(map);
       service.nearbySearch({
         location: curLocation,
-        radius: 1500,
+        radius: 1000,
         type: ['restaurant'],
         openNow: true,
       }, callback);
@@ -103,7 +104,15 @@ function calculateAndDisplayRoute(place) {
 function nextSuggestion() {
   if (lunchOptions.length > 0) {
     var lunchProposition = lunchOptions.shift();
+    rejectedOptions.push(lunchProposition);
     propose(lunchProposition);
+  } else {
+    if (confirm("Out of suggestions. Go back through them?")) {
+      lunchOptions = rejectedOptions.slice();
+      rejectedOptions = [];
+      shuffleArray(lunchOptions);
+      nextSuggestion();
+    }
   }
 }
 
