@@ -1,5 +1,4 @@
 #map {
-  /* z-index: -1; */
   height: 100%;
 }
 
@@ -7,11 +6,7 @@
   font-size: 40px;
 }
 
-.suggestion-head {
-  padding: 0.25rem 0.5rem;
-}
-
-.suggestion-body {
+.suggestion div {
   padding: 0.25rem 0.5rem;
 }
 
