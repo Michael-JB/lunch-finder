@@ -24,7 +24,9 @@ function initMap() {
   });
 
   directionsService = new google.maps.DirectionsService;
-  directionsDisplay = new google.maps.DirectionsRenderer;
+  directionsDisplay = new google.maps.DirectionsRenderer({
+    suppressMarkers: true
+  });
   infoWindow = new google.maps.InfoWindow;
 
   directionsDisplay.setMap(map);
@@ -43,7 +45,8 @@ function initMap() {
       service.nearbySearch({
         location: curLocation,
         radius: 1500,
-        type: ['restaurant']
+        type: ['restaurant'],
+        openNow: true,
       }, callback);
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
@@ -62,13 +65,10 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function callback(results, status, pagination) {
-  console.log(results);
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       var restaurant = results[i];
-      if (restaurant.hasOwnProperty('opening_hours') && restaurant.opening_hours.open_now) {
-        lunchOptions.push(restaurant);
-      }
+      lunchOptions.push(restaurant);
     }
     if (pagination.hasNextPage) pagination.nextPage();
     shuffleArray(lunchOptions);
