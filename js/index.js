@@ -79,10 +79,9 @@ function callback(results, status, pagination) {
 
 function propose(place) {
   var placeLoc = place.geometry.location;
-  createMarker(place);
   document.getElementById("suggestion-name").innerHTML = place.name;
   document.getElementById("suggestion-address").innerHTML = place.vicinity;
-
+  createMarker(place);
   calculateAndDisplayRoute(placeLoc);
 }
 
@@ -95,9 +94,7 @@ function calculateAndDisplayRoute(place) {
     if (status === 'OK') {
       directionsDisplay.setDirections(response);
       document.getElementById("suggestion-distance").innerHTML = "(" + response.routes[0].legs[0].distance.text + " away)";
-    } else {
-      window.alert('Directions request failed due to ' + status);
-    }
+    } else console.log('Directions request failed due to ' + status);
   });
 }
 
