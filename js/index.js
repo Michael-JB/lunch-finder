@@ -104,9 +104,6 @@ function nextSuggestion() {
     var suggestion = document.getElementById('suggestion');
     var findButton = document.getElementById('next-button');
 
-    suggestion.classList.add('move-up');
-    findButton.classList.add('move-right');
-
     var removeButtonMove = function() {
       findButton.style.visibility = 'visible';
       findButton.classList.remove('move-right');
@@ -127,14 +124,19 @@ function nextSuggestion() {
     }
 
     if (transitionEvent) {
+      suggestion.classList.add('move-up');
+      findButton.classList.add('move-right');
+
       suggestion.addEventListener(transitionEvent, makeSuggestion);
       findButton.addEventListener(transitionEvent, removeButtonMove);
+    } else {
+      makeSuggestion();
+      findButton.style.visibility = 'visible';
     }
   } else {
-    if (confirm('Out of suggestions. Go back through them?')) {
+    if (rejectedOptions.length > 0) {
       lunchOptions = rejectedOptions.slice();
       rejectedOptions = [];
-      shuffleArray(lunchOptions);
       nextSuggestion();
     }
   }
