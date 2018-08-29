@@ -79,8 +79,8 @@ function callback(results, status, pagination) {
 
 function propose(place) {
   var placeLoc = place.geometry.location;
-  document.getElementById("suggestion-name").innerHTML = place.name;
-  document.getElementById("suggestion-address").innerHTML = place.vicinity;
+  document.getElementById('suggestion-name').innerHTML = place.name;
+  document.getElementById('suggestion-address').innerHTML = place.vicinity;
   createMarker(place);
   calculateAndDisplayRoute(placeLoc);
 }
@@ -93,18 +93,47 @@ function calculateAndDisplayRoute(place) {
   }, function(response, status) {
     if (status === 'OK') {
       directionsDisplay.setDirections(response);
-      document.getElementById("suggestion-distance").innerHTML = "(" + response.routes[0].legs[0].distance.text + " away)";
+      document.getElementById('suggestion-distance').innerHTML = '(' + response.routes[0].legs[0].distance.text + ' away)';
     } else console.log('Directions request failed due to ' + status);
   });
 }
 
 function nextSuggestion() {
   if (lunchOptions.length > 0) {
-    var lunchProposition = lunchOptions.shift();
-    rejectedOptions.push(lunchProposition);
-    propose(lunchProposition);
+    var suggestion = document.getElementById('suggestion');
+    var findButton = document.getElementById('next-button');
+
+    suggestion.style.visibility = 'visible';
+    findButton.style.visibility = 'visible';
+
+    var transitionEvent = whichTransitionEvent();
+
+    suggestion.classList.add('move-up');
+    findButton.classList.add('move-right');
+
+    var removeButtonMove = function() {
+      findButton.classList.remove('move-right');
+      if (transitionEvent) findButton.removeEventListener(transitionEvent, removeButtonMove);
+    }
+
+    var removeSuggestionMove = function() {
+      suggestion.classList.remove('move-up');
+      if (transitionEvent) suggestion.removeEventListener(transitionEvent, makeSuggestion);
+    }
+
+    var makeSuggestion = function() {
+      var lunchProposition = lunchOptions.shift();
+      rejectedOptions.push(lunchProposition);
+      propose(lunchProposition);
+      removeSuggestionMove();
+    }
+
+    if (transitionEvent) {
+      suggestion.addEventListener(transitionEvent, makeSuggestion);
+      findButton.addEventListener(transitionEvent, removeButtonMove);
+    }
   } else {
-    if (confirm("Out of suggestions. Go back through them?")) {
+    if (confirm('Out of suggestions. Go back through them?')) {
       lunchOptions = rejectedOptions.slice();
       rejectedOptions = [];
       shuffleArray(lunchOptions);
@@ -133,7 +162,7 @@ function markMyLocation(location) {
     animation: google.maps.Animation.DROP
   });
   google.maps.event.addListener(myMarker, 'click', function() {
-    infoWindow.setContent("You are here");
+    infoWindow.setContent('You are here');
     infoWindow.open(map, this);
   });
 }
@@ -142,5 +171,19 @@ function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function whichTransitionEvent() {
+  var el = document.createElement('fakeelement');
+  var transitions = {
+    'transition':'transitionend',
+    'OTransition':'oTransitionEnd',
+    'MozTransition':'transitionend',
+    'WebkitTransition':'webkitTransitionEnd'
+  }
+
+  for (var t in transitions) {
+    if (el.style[t] !== undefined) return transitions[t];
   }
 }

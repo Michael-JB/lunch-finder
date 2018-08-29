@@ -6,6 +6,24 @@
   font-size: 40px;
 }
 
+#suggestion {
+  text-align: left;
+  margin: 1rem;
+  position: absolute;
+  color: white;
+  background-color: #555555;
+  border-radius: 0.25rem;
+  top: 0;
+  visibility: hidden;
+}
+
+.transition {
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
 .suggestion-head {
   padding: 0.25rem 0.5rem;
 }
@@ -20,16 +38,6 @@
   margin-top: 1rem;
 }
 
-.suggestion {
-  text-align: left;
-  margin: 1rem;
-  position: absolute;
-  color: white;
-  background-color: #555555;
-  border-radius: 0.25rem;
-  top: 0;
-}
-
 .skip-place {
   z-index: 1;
   text-align: right;
@@ -37,6 +45,14 @@
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.move-up {
+  transform: translateY(-200%);
+}
+
+.move-right {
+  transform: translateX(200%);
 }
 
 button {
@@ -52,6 +68,7 @@ button {
   font-size: 16px;
   opacity: 0.9;
   cursor: pointer;
+  visibility: hidden;
 }
 
 button:hover {
