@@ -17,26 +17,38 @@
 
   <body>
 
-    <div id="map"></div>
+    <div id="welcome" class="center-screen">
+      <h1 id="welcome-head">Lunch Finder requires your location.</h1>
+      <p id="welcome-body">To find you nearby places to eat, this app needs to know your location.
+        <br>To continue, allow Lunch Finder to access your location.</p>
+      <button id="welcome-button" class="btn" onclick="showApp()">Allow location access</button>
+    </div>
 
-    <div id="suggestion" class="transition">
-      <div class="suggestion-data">
-        <div class="suggestion-head">
-          <span id="suggestion-name"></span>
+    <div id="app" style="display:none">
+      <div id="map"></div>
+
+      <div id="suggestion" class="transition">
+        <div class="suggestion-data">
+          <div class="suggestion-head">
+            <span id="suggestion-name"></span>
+          </div>
+          <div class="suggestion-body">
+            <span id="suggestion-address"></span>
+            <span id="suggestion-distance"></span>
+          </div>
         </div>
-        <div class="suggestion-body">
-          <span id="suggestion-address"></span>
-          <span id="suggestion-distance"></span>
-        </div>
+      </div>
+  
+      <div class="skip-place">
+        <button id="next-button" class="btn transition" onclick="nextSuggestion()">Find lunch</button>
       </div>
     </div>
 
-    <div class="skip-place">
-      <button id="next-button" class="transition" onclick="nextSuggestion()">Find lunch</button>
-    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ535kzUyaN9E7qfh2LUUgIh_-jSycONY&libraries=places"></script>
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script> -->
 
     <script src="js/index.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ535kzUyaN9E7qfh2LUUgIh_-jSycONY&libraries=places&callback=initMap"></script>
-    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&callback=initMap"></script> -->
+    <script>startApp();</script>
   </body>
 </html>

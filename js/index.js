@@ -12,6 +12,26 @@ var curLocation = {
 var lunchOptions = [];
 var rejectedOptions = [];
 
+function startApp() {
+  navigator.permissions.query({name:'geolocation'}).then(function(permissionStatus) {
+    console.log('geolocation permission state is ', permissionStatus.state);
+    switch(permissionStatus.state) {
+      case 'granted':
+        showApp();
+        break;
+      case 'denied':
+        document.getElementById('welcome-button').style.display = 'none';
+        break;
+    }
+  });
+}
+
+function showApp() {
+  document.getElementById('welcome').style.display = 'none';
+  document.getElementById('app').style.display = 'initial';
+  initMap();
+}
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: curLocation,
@@ -86,16 +106,26 @@ function propose(place) {
 }
 
 function calculateAndDisplayRoute(place) {
-  directionsService.route({
-    origin: curLocation,
-    destination: place,
-    travelMode: 'WALKING'
-  }, function(response, status) {
-    if (status === 'OK') {
-      directionsDisplay.setDirections(response);
-      document.getElementById('suggestion-distance').innerHTML = '(' + response.routes[0].legs[0].distance.text + ' away)';
-    } else console.log('Directions request failed due to ' + status);
-  });
+
+  var showRoute = function(route) {
+    directionsDisplay.setDirections(route);
+    document.getElementById('suggestion-distance').innerHTML = '(' + route.routes[0].legs[0].distance.text + ' away)';
+  }
+
+  if (place.route) {
+    showRoute(place.route);
+  } else {
+    directionsService.route({
+      origin: curLocation,
+      destination: place,
+      travelMode: 'WALKING'
+    }, function(response, status) {
+      if (status === 'OK') {
+        place.route = response;
+        showRoute(response);
+      } else console.log('Directions request failed due to ' + status);
+    });
+  }
 }
 
 function nextSuggestion() {

@@ -18,6 +18,10 @@
 }
 
 #next-button {
+  visibility: hidden;
+}
+
+.btn {
   font-family: 'Roboto', sans-serif;
   background-color: #555555;
   border-radius: 0.25rem;
@@ -30,10 +34,9 @@
   font-size: 16px;
   opacity: 0.9;
   cursor: pointer;
-  visibility: hidden;
 }
 
-#next-button:hover {
+.btn:hover {
   opacity: 1;
 }
 
@@ -65,6 +68,15 @@
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
 }
 
 .move-up {
