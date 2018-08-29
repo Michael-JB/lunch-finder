@@ -14,7 +14,6 @@ var rejectedOptions = [];
 
 function startApp() {
   navigator.permissions.query({name:'geolocation'}).then(function(permissionStatus) {
-    console.log('geolocation permission state is ', permissionStatus.state);
     switch(permissionStatus.state) {
       case 'granted':
         showApp();
