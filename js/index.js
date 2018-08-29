@@ -36,9 +36,9 @@ function initMap() {
     center: curLocation,
     streetViewControl: false,
     fullscreenControl: false,
+    mapTypeControl: false,
 
     zoomControlOptions: { position: google.maps.ControlPosition.LEFT_CENTER },
-    mapTypeControlOptions: { position: google.maps.ControlPosition.LEFT_BOTTOM },
 
     zoom: 6
   });
