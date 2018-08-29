@@ -103,9 +103,6 @@ function nextSuggestion() {
     var suggestion = document.getElementById('suggestion');
     var findButton = document.getElementById('next-button');
 
-    suggestion.style.visibility = 'visible';
-    findButton.style.visibility = 'visible';
-
     var transitionEvent = whichTransitionEvent();
 
     suggestion.classList.add('move-up');
