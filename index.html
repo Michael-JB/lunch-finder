@@ -19,7 +19,7 @@
 
     <div id="map"></div>
 
-    <div class="suggestion">
+    <div id="suggestion" class="transition">
       <div class="suggestion-data">
         <div class="suggestion-head">
           <span id="suggestion-name"></span>
@@ -32,11 +32,11 @@
     </div>
 
     <div class="skip-place">
-      <button onclick="nextSuggestion()">Find somewhere</button>
+      <button id="next-button" class="transition" onclick="nextSuggestion()">Find lunch</button>
     </div>
 
     <script src="js/index.js"></script>
-    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&callback=initMap"></script> -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ535kzUyaN9E7qfh2LUUgIh_-jSycONY&libraries=places&callback=initMap"></script>
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&callback=initMap"></script> -->
   </body>
 </html>

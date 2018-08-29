@@ -14,13 +14,14 @@
   background-color: #555555;
   border-radius: 0.25rem;
   top: 0;
+  visibility: hidden;
 }
 
 .transition {
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;
   -o-transition: all 0.4s;
-  transition: all 0.s;
+  transition: all 0.4s;
 }
 
 .suggestion-head {
@@ -67,6 +68,7 @@ button {
   font-size: 16px;
   opacity: 0.9;
   cursor: pointer;
+  visibility: hidden;
 }
 
 button:hover {

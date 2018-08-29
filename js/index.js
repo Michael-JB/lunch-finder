@@ -100,22 +100,23 @@ function calculateAndDisplayRoute(place) {
 
 function nextSuggestion() {
   if (lunchOptions.length > 0) {
+    var transitionEvent = whichTransitionEvent();
     var suggestion = document.getElementById('suggestion');
     var findButton = document.getElementById('next-button');
-
-    var transitionEvent = whichTransitionEvent();
 
     suggestion.classList.add('move-up');
     findButton.classList.add('move-right');
 
     var removeButtonMove = function() {
+      findButton.style.visibility = 'visible';
       findButton.classList.remove('move-right');
-      if (transitionEvent) findButton.removeEventListener(transitionEvent, removeButtonMove);
+      findButton.removeEventListener(transitionEvent, removeButtonMove);
     }
 
     var removeSuggestionMove = function() {
+      suggestion.style.visibility = 'visible';
       suggestion.classList.remove('move-up');
-      if (transitionEvent) suggestion.removeEventListener(transitionEvent, makeSuggestion);
+      suggestion.removeEventListener(transitionEvent, makeSuggestion);
     }
 
     var makeSuggestion = function() {
