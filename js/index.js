@@ -33,14 +33,11 @@ function showApp() {
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: curLocation,
     streetViewControl: false,
     fullscreenControl: false,
     mapTypeControl: false,
 
-    zoomControlOptions: { position: google.maps.ControlPosition.LEFT_CENTER },
-
-    zoom: 6
+    zoomControlOptions: { position: google.maps.ControlPosition.LEFT_CENTER }
   });
 
   directionsService = new google.maps.DirectionsService;
